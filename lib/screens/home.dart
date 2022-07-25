@@ -262,6 +262,7 @@ class _HomePageState extends State<HomePage> {
             updateByHash(hash_atual,
                 <String, dynamic>{"atendimento": false, "acidente": false});
             _haveVideo = false;
+            _showToast("Atendimento encerrado com sucesso");
           },
           color: getCurrentColor(data_atual),
           shape:
@@ -346,7 +347,27 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 25,
               ),
-              renderCallButton(data_atual)
+              renderCallButton(data_atual),
+              const SizedBox(
+                height: 15,
+              ),
+              MaterialButton(
+                minWidth: MediaQuery.of(context).size.height - 800,
+                height: 60,
+                onPressed: () {
+                  initializeVideo(hash_atual);
+                },
+                color: Colors.blueAccent,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40)),
+                child: const Text(
+                  "Atualizar video",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      color: Colors.white70),
+                ),
+              )
             ],
           ),
         );
@@ -361,12 +382,6 @@ class _HomePageState extends State<HomePage> {
 
     if (_haveData == true) {
       return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: (() {
-            initializeVideo(hash_atual);
-          }),
-          child: Icon(Icons.refresh),
-        ),
         body: StreamBuilder<QuerySnapshot>(
             stream: FirebaseFirestore.instance.collection('users').snapshots(),
             builder:
