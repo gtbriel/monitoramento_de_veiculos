@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,11 +13,43 @@ class _LoginPageState extends State<LoginPage> {
   bool isHidden = true;
   final email_controller = TextEditingController();
   final pwd_controller = TextEditingController();
+  late FToast fToast;
 
   signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email_controller.text.trim(),
-        password: pwd_controller.text.trim());
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email_controller.text.trim(),
+          password: pwd_controller.text.trim());
+    } on Exception catch (error) {
+      _showToast(error.toString());
+    }
+  }
+
+  _showToast(String msg) {
+    Widget toast = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25.0),
+        color: Colors.grey,
+      ),
+      child: Text(
+        msg,
+        style: const TextStyle(color: Colors.white),
+      ),
+    );
+
+    fToast.showToast(
+      child: toast,
+      gravity: ToastGravity.BOTTOM,
+      toastDuration: const Duration(seconds: 5),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
   }
 
   @override

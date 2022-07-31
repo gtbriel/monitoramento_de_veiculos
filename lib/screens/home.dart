@@ -333,14 +333,19 @@ class _HomePageState extends State<HomePage> {
                   ),
                   InkWell(
                     child: Image.asset('assets/images/telefone.png', scale: 7),
-                    onTap: () {},
+                    onTap: () {
+                      _showToast(
+                          "Ligando para o cliente, fique disponível na linha.");
+                    },
                   ),
                   const SizedBox(
                     width: 25,
                   ),
                   InkWell(
                     child: Image.asset('assets/images/wpp.png', scale: 11),
-                    onTap: () {},
+                    onTap: () {
+                      _showToast("Encaminhando mensagem padrão pelo whatsapp.");
+                    },
                   ),
                 ],
               ),
