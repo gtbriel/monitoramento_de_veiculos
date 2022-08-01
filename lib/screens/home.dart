@@ -164,18 +164,6 @@ class _HomePageState extends State<HomePage> {
                   height: 20,
                 ),
                 Text(
-                  data_atual['velocidade'].toString() != 'null'
-                      ? "Velocidade: " + data_atual['velocidade'].toString()
-                      : "Velocidade: ",
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
                   data_atual['aceleracao'].toString() != 'null'
                       ? "Aceleração: " + data_atual['aceleracao'].toString()
                       : "Aceleração: ",
